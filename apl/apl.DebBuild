@@ -1,0 +1,32 @@
+#!/bin/bash
+# 2016-2017 (c) Artem Kurashov <saahriktu@gmail.com> under GNU GPLv3
+
+#control variables
+PKGNAM=apl
+VERSION=${VERSION:-$(echo $PKGNAM_*.tar.?z* | cut -f 2 -d - | cut -f 1-2 -d .)}
+CLNVER=$(echo "$VERSION" | sed 's/[a-z]//')
+ARCH=$(dpkg --print-architecture)
+BUILD=${BUILD:-1}
+CWD=$(pwd)
+
+#adjust control file
+sed -i "s/^Architecture:.*$/Architecture: $ARCH/" control
+sed -i "s/^Version:.*$/Version: $VERSION/" control
+
+#building
+tar xvf $PKGNAM-*.tar.?z*
+cd $PKGNAM-$CLNVER
+./configure --prefix=/usr
+sed -i 's/CXXFLAGS = -g -O2/& -std=c++11/' Makefile
+sed -i 's/CXXFLAGS = -g -O2/& -std=c++11/' src/Makefile
+make
+
+#packaging
+mkdir $CWD/data
+DESTDIR="$CWD/data" make install
+cd $CWD/data
+makedeb ep ${PKGNAM}_${VERSION}-${BUILD}_${ARCH}.deb
+
+#cleaning
+cd ..
+rm -r control.tar.gz data data.tar.lzma debian-binary md5sums $PKGNAM-$CLNVER

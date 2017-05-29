@@ -1,0 +1,10 @@
+Package: apl
+Priority: optional
+Section: devel
+Installed-Size: 17890
+Maintainer: Artem Kurashov <saahriktu@gmail.com>
+Architecture: amd64
+Version: 1.7
+Depends: libc6 (>= 2.19), libgcc1 (>= 1:4.9.2), libncurses5 (>= 5.9), libstdc++6 (>= 4.9.2), libtinfo5 (>= 5.9)
+Description: GNU APL is a free interpreter for the programming language APL.
+

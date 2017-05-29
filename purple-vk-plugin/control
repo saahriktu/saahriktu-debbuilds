@@ -1,0 +1,12 @@
+Package: purple-vk-plugin
+Version: 9999-DBo
+Installed-Size: 111
+Maintainer: Artem Kurashov <mail@saahriktu.org>
+Architecture: amd64
+Depends: glibc
+Description: vk.com plugin for libpurple messengers (Pidgin-specific files)
+Homepage: https://github.com/akaWolf/purple-vk-plugin
+Tag: implemented-in::c, interface::x11, role::plugin, uitoolkit::gtk,
+ works-with::im, x11::application
+Section: contrib/net
+Priority: optional

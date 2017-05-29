@@ -1,0 +1,33 @@
+#!/bin/bash
+# 2017 (c) Artem Kurashov <mail@saahriktu.org> under GNU GPLv3
+
+#control variables
+PKGNAM=purple-vk-plugin
+VERSION=${VERSION:-9999}
+ARCH=$(uname -m)
+BUILD=${BUILD:-1}
+
+#building
+tar xvf $PKGNAM.tar.?z*
+cd $PKGNAM
+cmake CMakeLists.txt
+make
+
+#packaging
+mkdir -p pkgdata/usr/lib/purple-2/ \
+	pkgdata/usr/share/pixmaps/pidgin/emotes \
+	pkgdata/usr/share/locale/ru/LC_MESSAGES
+cp libpurple-vk-plugin.so pkgdata/usr/lib/purple-2/
+cp -r data/smileys/vk pkgdata/usr/share/pixmaps/pidgin/emotes
+cp -r data/protocols pkgdata/usr/share/pixmaps/pidgin
+cp ru.gmo pkgdata/usr/share/locale/ru/LC_MESSAGES
+strip -s pkgdata/usr/lib/purple-2/libpurple-vk-plugin.so
+cp ../control .
+cd pkgdata
+makedeb ep ${PKGNAM}_${VERSION}-${BUILD}_${ARCH}.deb
+cd ..
+mv ${PKGNAM}_${VERSION}-${BUILD}_${ARCH}.deb ..
+
+#cleaning
+cd ..
+rm -r $PKGNAM
