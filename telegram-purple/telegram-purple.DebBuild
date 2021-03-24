@@ -1,5 +1,5 @@
 #!/bin/bash
-# 2017 (c) Artem Kurashov <mail@saahriktu.org> under GNU GPLv3
+#2017 (c) Artem Kurashov <mail@saahriktu.org> under GNU GPLv3
 
 #control variables
 PKGNAM=telegram-purple
